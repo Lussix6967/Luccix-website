@@ -1,1 +1,12 @@
-{}
+{
+    "oversized_hoodie": {
+        "name": "LUCCIX BOXY SHIRT",
+        "bild_url": "/static/shirt.png",
+        "stimmen": 0
+    },
+    "cargo_hose": {
+        "name": "LUCCIX FITTED CAP",
+        "bild_url": "/static/cap.png",
+        "stimmen": 0
+    }
+}
