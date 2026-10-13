@@ -1,39 +1,48 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Deine Modemarke | Kollektion Voting</title>
+    <title>LUCCIX | Collection Voting & Community</title>
     <style>
         body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 0; background-color: #fafafa; color: #111; }
         header { text-align: center; padding: 40px 20px; background: white; border-bottom: 1px solid #eee; }
-        header h1 { margin: 0; font-size: 32px; letter-spacing: 4px; text-transform: uppercase; }
-        header p { color: #666; margin-top: 10px; }
+        header h1 { margin: 0; font-size: 36px; letter-spacing: 6px; text-transform: uppercase; }
+        header p { color: #666; margin-top: 10px; font-size: 14px; letter-spacing: 1px; }
         
-        /* Layout für die Werbebanner */
-        .werbung-banner { background: #f0f0f0; border: 1px dashed #bbb; text-align: center; padding: 20px; margin: 20px auto; max-width: 1000px; color: #888; font-size: 12px; }
+        .werbung-banner { background: #f0f0f0; border: 1px dashed #bbb; text-align: center; padding: 20px; margin: 20px auto; max-width: 1000px; color: #888; font-size: 12px; letter-spacing: 1px; }
 
-        .galerie { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
-        .produkt-karte { background: white; border: 1px solid #eee; border-radius: 8px; width: 300px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-align: center; padding-bottom: 20px; }
-        .produkt-karte img { width: 100%; height: 350px; object-fit: cover; }
-        .produkt-karte h3 { font-size: 18px; margin: 15px 0 5px 0; text-transform: uppercase; letter-spacing: 1px; }
-        .stimmen-zahl { color: #2196F3; font-weight: bold; margin-bottom: 15px; }
+        .galerie { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+        .produkt-karte { background: white; border: 1px solid #eee; border-radius: 8px; width: 320px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.02); text-align: center; padding-bottom: 25px; transition: transform 0.2s; }
+        .produkt-karte:hover { transform: translateY(-5px); }
+        .produkt-karte img { width: 100%; height: 380px; object-fit: cover; }
+        .produkt-karte h3 { font-size: 16px; margin: 20px 0 5px 0; text-transform: uppercase; letter-spacing: 2px; }
+        .stimmen-zahl { color: #555; font-size: 14px; margin-bottom: 18px; letter-spacing: 0.5px; }
         
-        .btn-vote { padding: 10px 20px; background: #111; color: white; border: none; border-radius: 4px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; cursor: pointer; transition: 0.2s; }
-        .btn-vote:hover { background: #4CAF50; }
+        .btn-vote { padding: 12px 24px; border: 1px solid #111; border-radius: 4px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; cursor: pointer; transition: 0.2s; background: transparent; color: #111; }
+        .btn-vote.active { background: #d32f2f; color: white; border-color: #d32f2f; }
+        .btn-vote:hover { background: #111; color: white; }
+        .btn-vote.active:hover { background: #b71c1c; border-color: #b71c1c; }
+
+        /* Contact Form Styles */
+        .contact-section { background: white; border-top: 1px solid #eee; padding: 50px 20px; text-align: center; }
+        .contact-container { max-width: 500px; margin: 0 auto; text-align: left; }
+        .contact-container h2 { text-align: center; text-transform: uppercase; letter-spacing: 3px; font-size: 22px; margin-bottom: 30px; }
+        .contact-container label { display: block; margin-top: 15px; color: #444; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        .contact-container input, .contact-container textarea { width: 100%; padding: 12px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
+        .btn-submit { width: 100%; padding: 14px; margin-top: 20px; background: #111; color: white; border: none; border-radius: 4px; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.2s; }
+        .btn-submit:hover { background: #333; }
+        .success-flash { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 4px; text-align: center; margin-bottom: 20px; font-size: 14px; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>LUCCIX CLOTHING</h1>
-        <p>Vote now! Which items should we officially add to the shop?
-
-</p>
+        <h1>LUCCIX</h1>
+        <p>VOTE FOR YOUR FAVORITE DESIGNS. HELP US DECIDE WHAT DROPS NEXT.</p>
     </header>
 
-    <!-- Platzhalter für deine spätere Google-Werbung -->
     <div class="werbung-banner">
-        [HIER WIRD DEINE GOOGLE ADSENSE WERBUNG ANGEZEIGT]
+        [ADVERTISEMENT SPACE]
     </div>
 
     <div class="galerie">
@@ -44,15 +53,39 @@
             <div class="stimmen-zahl">🔥 {{ info.stimmen }} Likes</div>
             
             <form action="/vote/{{ id }}" method="POST">
-                <button type="submit" class="btn-vote">👍 i like it </button>
+                {% if id in voted_items %}
+                    <button type="submit" class="btn-vote active">❤️ Liked</button>
+                {% else %}
+                    <button type="submit" class="btn-vote">👍 Like Design</button>
+                {% endif %}
             </form>
         </div>
         {% endfor %}
     </div>
 
-    <!-- Ein zweiter Werbebanner unten erhöht die Einnahmen -->
+    <!-- Contact Section -->
+    <div class="contact-section">
+        <div class="contact-container">
+            <h2>Get in Touch</h2>
+            
+            {% if success_message %}
+                <div class="success-flash">{{ success_message }}</div>
+            {% endif %}
+            
+            <form action="/contact" method="POST">
+                <label>Your Email Address:</label>
+                <input type="email" name="email" placeholder="name@example.com" required>
+                
+                <label>Your Ideas or Questions:</label>
+                <textarea name="message" rows="5" placeholder="Share your feedback or design concepts with us..." required></textarea>
+                
+                <button type="submit" class="btn-submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
     <div class="werbung-banner">
-        [HIER WIRD WEITERE WERBUNG ANGEZEIGT]
+        [ADVERTISEMENT SPACE]
     </div>
 
 </body>
