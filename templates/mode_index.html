@@ -71,19 +71,19 @@
         <div class="contact-container">
             <h2>Get in Touch</h2>
             
-            {% if success_message %}
-                <div class="success-flash">{{ success_message }}</div>
-            {% endif %}
+            <!-- Dynamische Erfolgsmeldung -->
+            <div id="contact-success" class="success-flash" style="display: none;">
+                Thank you! Your message has been sent successfully to the LUCCIX team.
+            </div>
             
-                        <!-- Formspree Integration with your custom ID -->
-            <form action="https://formspree.io/f/meaerrwy" method="POST">
+            <form id="contact-form" action="https://formspree.io" method="POST">
                 <label>Your Email Address:</label>
                 <input type="email" name="_replyto" placeholder="name@example.com" required>
                 
                 <label>Your Ideas or Questions:</label>
                 <textarea name="message" rows="5" placeholder="Share your feedback or design concepts with us..." required></textarea>
                 
-                <button type="submit" class="btn-submit">Send Message</button>
+                <button type="submit" id="btn-submit" class="btn-submit">Send Message</button>
             </form>
         </div>
     </div>
@@ -117,6 +117,46 @@
             <p style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; font-size: 11px;">&copy; 2026 LUCCIX. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- JavaScript für lautlosen Hintergrundversand -->
+    <script>
+        const form = document.getElementById('contact-form');
+        const successMessage = document.getElementById('contact-success');
+        const submitButton = document.getElementById('btn-submit');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            submitButton.innerText = 'Sending...';
+            submitButton.disabled = true;
+
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    form.reset();
+                    form.style.display = 'none';
+                    successMessage.style.display = 'block';
+                } else {
+                    alert('Oops! Something went wrong. Please try again.');
+                    submitButton.innerText = 'Send Message';
+                    submitButton.disabled = false;
+                }
+            })
+            .catch(error => {
+                alert('Oops! There was a network connection problem.');
+                submitButton.innerText = 'Send Message';
+                submitButton.disabled = false;
+            });
+        });
+    </script>
 
 </body>
 </html>
