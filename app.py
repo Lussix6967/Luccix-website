@@ -22,7 +22,7 @@ DEFAULT_DATA = {
 }
 
 def load_votes():
-    """Lädt die aktuellen Stimmen aus der JSON-Datei."""
+    """Laest die aktuellen Stimmen aus der JSON-Datei."""
     if not os.path.exists(VOTES_FILE):
         with open(VOTES_FILE, "w") as f:
             json.dump(DEFAULT_DATA, f)
@@ -77,7 +77,7 @@ def vote(artikel_id):
 
         # Cookie im Browser aktualisieren
         response = make_response(redirect(url_for("home")))
-        response.set_cookie("voted_items", json.dumps(voted_items), max_age=30*24*60*60) # 30 Tage gültig
+        response.set_cookie("voted_items", json.dumps(voted_items), max_age=30*24*60*60) # 30 Tage gueltig
         return response
         
     return redirect(url_for("home"))
