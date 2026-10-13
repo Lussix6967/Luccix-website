@@ -22,7 +22,7 @@ DEFAULT_DATA = {
 }
 
 def load_votes():
-    """Laest die aktuellen Stimmen aus der JSON-Datei."""
+    """Laedt die aktuellen Stimmen aus der JSON-Datei."""
     if not os.path.exists(VOTES_FILE):
         with open(VOTES_FILE, "w") as f:
             json.dump(DEFAULT_DATA, f)
@@ -88,7 +88,7 @@ def contact():
     email = request.form.get("email")
     message = request.form.get("message")
     
-    # Zeigt Nachrichten im Render-Protokoll an
+    # Zeigt Nachrichten im Render-Protokoll (Logs) an
     print(f"NEW MESSAGE FROM {email}: {message}")
     
     return render_template("mode_index.html", klamotten=klamotten_daten, voted_items=[], success_message="Thank you! Your message has been sent.")
