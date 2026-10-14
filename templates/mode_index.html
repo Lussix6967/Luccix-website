@@ -54,8 +54,8 @@
         <div class="produkt-karte">
             <img src="{{ info.bild_url }}" alt="{{ info.name }}">
             <h3>{{ info.name }}</h3>
-            <div class="stimmen-zahl">🔥 {{ info.stimmen }} Likes</div>
-            
+            <div class="stimmen-zahl">🔥 <span id="like-count-{{ id }}">{{ info.stimmen }}</span> Likes</div>
+
             <form action="/vote/{{ id }}" method="POST">
                 {% if id in voted_items %}
                     <button type="submit" class="btn-vote active">❤️ Liked</button>
@@ -109,7 +109,7 @@
         statusBox.style.backgroundColor = "#f0f0f0";
         statusBox.style.color = "#666666";
         statusBox.style.border = "1px solid #ccc";
-        statusBox.innerText = "Wird gesendet...";
+        statusBox.innerText = "Sending...";
         submitBtn.disabled = true;
 
         const data = new URLSearchParams(new FormData(event.target));
@@ -126,21 +126,21 @@
                 statusBox.style.backgroundColor = "#e6f2ff";
                 statusBox.style.color = "blue";
                 statusBox.style.border = "1px solid blue";
-                statusBox.innerText = "Vielen Dank! Deine Nachricht wurde erfolgreich übermittelt.";
+                statusBox.innerText = "Thank you! Your message has been sent successfully.";
                 form.reset(); // Leert das Formular
             } else {
                 // ZUSTAND 3: ERROR (Rot)
                 statusBox.style.backgroundColor = "#ffe6e6";
                 statusBox.style.color = "red";
                 statusBox.style.border = "1px solid red";
-                statusBox.innerText = "Oops! Es gab ein Problem beim Absenden.";
+                statusBox.innerText = "Oops! There was a problem submitting your form. Please try again.";
             }
         } catch (error) {
             // ZUSTAND 3: ERROR (Rot bei Netzwerkfehler)
             statusBox.style.backgroundColor = "#ffe6e6";
             statusBox.style.color = "red";
             statusBox.style.border = "1px solid red";
-            statusBox.innerText = "Netzwerkfehler. Bitte versuche es später noch einmal.";
+            statusBox.innerText = "Network error. Please try again later.";
         } finally {
             submitBtn.disabled = false;
         }
