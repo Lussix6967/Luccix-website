@@ -112,7 +112,7 @@
         statusBox.innerText = "Wird gesendet...";
         submitBtn.disabled = true;
 
-        const data = new FormData(event.target);
+        const data = new URLSearchParams(new FormData(event.target));
         
         try {
             const response = await fetch(form.action, {
@@ -146,4 +146,3 @@
         }
     });
 </script>
-
