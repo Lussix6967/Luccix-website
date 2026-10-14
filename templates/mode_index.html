@@ -192,76 +192,75 @@
         </form>
     </div>
 
-    <!-- JavaScript für Formspree, Pop-ups & Dark Mode -->
-    <script>
-        // 1. Formspree Kontaktformular Steuerung
-        const form = document.getElementById("contact-form");
-        const statusBox = document.getElementById("status-box");
-        const submitBtn = document.getElementById("submit-btn");
+   <!-- JavaScript für Formspree, Pop-ups & Dark Mode -->
+<script>
+    // 1. Formspree Kontaktformular Steuerung
+    const form = document.getElementById("contact-form");
+    const statusBox = document.getElementById("status-box");
+    const submitBtn = document.getElementById("submit-btn");
 
-        if (form) {
-            form.addEventListener("submit", async function(event) {
-                event.preventDefault();
-                
-                statusBox.style.display = "block";
-                statusBox.style.backgroundColor = "#f0f0f0";
-                statusBox.style.color = "#666666";
-                statusBox.style.border = "1px solid #ccc";
-                statusBox.innerText = "Sending...";
-                if (submitBtn) submitBtn.disabled = true;
+    if (form) {
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            statusBox.style.display = "block";
+            statusBox.style.backgroundColor = "#f0f0f0";
+            statusBox.style.color = "#666666";
+            statusBox.style.border = "1px solid #ccc";
+            statusBox.innerText = "Sending...";
+            if (submitBtn) submitBtn.disabled = true;
 
-                const data = new URLSearchParams(new FormData(event.target));
+            const data = new URLSearchParams(new FormData(event.target));
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
                 
-                try {
-                    const response = await fetch(form.action, {
-                        method: form.method,
-                        body: data,
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    
-                    if (response.ok) {
-                        statusBox.style.backgroundColor = "#e6f2ff";
-                        statusBox.style.color = "blue";
-                        statusBox.style.border = "1px solid blue";
-                        statusBox.innerText = "Thank you! Your message has been sent successfully.";
-                        form.reset();
-                    } else {
-                        statusBox.style.backgroundColor = "#ffe6e6";
-                        statusBox.style.color = "red";
-                        statusBox.style.border = "1px solid red";
-                        statusBox.innerText = "Oops! There was a problem submitting your form.";
-                    }
-                } catch (error) {
+                if (response.ok) {
+                    statusBox.style.backgroundColor = "#e6f2ff";
+                    statusBox.style.color = "blue";
+                    statusBox.style.border = "1px solid blue";
+                    statusBox.innerText = "Thank you! Your message has been sent successfully.";
+                    form.reset();
+                } else {
                     statusBox.style.backgroundColor = "#ffe6e6";
                     statusBox.style.color = "red";
                     statusBox.style.border = "1px solid red";
-                    statusBox.innerText = "Network error. Please try again later.";
-                } finally {
-                    if (submitBtn) submitBtn.disabled = false;
+                    statusBox.innerText = "Oops! There was a problem submitting your form.";
                 }
-            });
-        }
+            } catch (error) {
+                statusBox.style.backgroundColor = "#ffe6e6";
+                statusBox.style.color = "red";
+                statusBox.style.border = "1px solid red";
+                statusBox.innerText = "Network error. Please try again later.";
+            } finally {
+                if (submitBtn) submitBtn.disabled = false;
+            }
+        });
+    }
 
-        // 2. Pop-up Steuerung für Impressum und Datenschutz
-        const modalImpressum = document.getElementById("modal-impressum");
-        const modalPrivacy = document.getElementById("modal-privacy");
+    // 2. Pop-up Steuerung für Impressum und Datenschutz
+    const modalImpressum = document.getElementById("modal-impressum");
+    const modalPrivacy = document.getElementById("modal-privacy");
 
-        const openImpressumBtn = document.getElementById("open-impressum");
-        const openPrivacyBtn = document.getElementById("open-privacy");
-        const closeImpressumBtn = document.getElementById("close-impressum");
-        const closePrivacyBtn = document.getElementById("close-privacy");
+    const openImpressumBtn = document.getElementById("open-impressum");
+    const openPrivacyBtn = document.getElementById("open-privacy");
+    const closeImpressumBtn = document.getElementById("close-impressum");
+    const closePrivacyBtn = document.getElementById("close-privacy");
 
-        if (openImpressumBtn) {
-            openImpressumBtn.addEventListener("click", function(e) { 
-                e.preventDefault(); 
-                if (modalImpressum) modalImpressum.style.display = "flex"; 
-            });
-        }
+    if (openImpressumBtn) {
+        openImpressumBtn.addEventListener("click", function(e) { 
+            e.preventDefault(); 
+            if (modalImpressum) modalImpressum.style.display = "flex"; 
+        });
+    }
 
-        if (openPrivacyBtn) {
-            openPrivacyBtn.addEventListener("click", function(e) { 
-                e.preventDefault(); 
-                            if (modalPrivacy) modalPrivacy.style.display = "flex"; 
+    if (openPrivacyBtn) {
+        openPrivacyBtn.addEventListener("click", function(e) { 
+            e.preventDefault(); 
+            if (modalPrivacy) modalPrivacy.style.display = "flex"; 
         });
     }
 
