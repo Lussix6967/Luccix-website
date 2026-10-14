@@ -143,7 +143,8 @@
 
             const formData = new FormData(form);
 
-            fetch(form.action, {
+            // HIER WIRD DIE URL DIREKT FEST ALS TEXT EINGETRAGEN:
+            fetch('https://formspree.io', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -168,7 +169,3 @@
             });
         });
     </script>
-
-</body>
-</html>
-  
