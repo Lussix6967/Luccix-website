@@ -128,34 +128,21 @@
             background-color: var(--modal-bg) !important;
             color: var(--text-color) !important;
 
-                /* Standardmäßig das weiße Logo unsichtbar machen */
+         /* Standardmäßig das weiße Logo im Light Mode verstecken */
         .logo-dark { 
-            opacity: 0 !important;
-            visibility: hidden !important;
-            width: 0 !important;
-            height: 0 !important;
+            display: none !important; 
         }
         .logo-light { 
-            opacity: 1 !important;
-            visibility: visible !important;
-            width: 100px !important;
-            height: auto !important;
+            display: inline-block !important; 
         }
 
         /* Wenn der Dark Mode aktiv ist: Schwarz verstecken, Weiß zeigen */
         [data-theme="dark"] .logo-light { 
-            opacity: 0 !important;
-            visibility: hidden !important;
-            width: 0 !important;
-            height: 0 !important;
+            display: none !important; 
         }
         [data-theme="dark"] .logo-dark { 
-            opacity: 1 !important;
-            visibility: visible !important;
-            width: 100px !important;
-            height: auto !important;
+            display: inline-block !important; 
         }
-
     </style>
 </head>
 <body>
@@ -229,12 +216,15 @@
             <a href="javascript:void(0);" id="open-privacy" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Privacy Policy</a>
         </p>
     </footer>
-    <!-- Dynamisches Brand-Logo ohne Text-Platzhalter und Rahmen -->
-    <div style="margin: 20px auto 15px auto; display: flex; justify-content: center; align-items: center;">
-        <img class="logo-light" src="/static/logo_black.png" alt="" style="border: none; background: transparent; outline: none;">
-        <img class="logo-dark" src="/static/logo_white.png" alt="" style="border: none; background: transparent; outline: none;">        
-    </div>
 
+    <!-- Dynamisches Brand-Logo ohne Rahmen und 10% kleiner -->
+    <div style="margin: 20px auto 15px auto; display: flex; justify-content: center; align-items: center;">
+        <!-- Schwarzes Logo für den Light Mode (links auf deinem Bild) -->
+        <img class="logo-light" src="/static/logo_black.png" alt="" style="width: 90px; height: auto; border: none; background: transparent; outline: none;">
+        <!-- Weißes Logo für den Dark Mode (rechts auf deinem Bild) -->
+        <img class="logo-dark" src="/static/logo_white.png" alt="" style="width: 90px; height: auto; border: none; background: transparent; outline: none;">
+    </div>
+    
     <!-- POP-UP MODALS -->
     <div id="modal-impressum" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center;">
         <div style="background: var(--bg-color); color: var(--text-color); padding: 30px; max-width: 500px; width: 90%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; font-family: Arial, sans-serif; max-height: 80vh; overflow-y: auto; text-align: left;">
