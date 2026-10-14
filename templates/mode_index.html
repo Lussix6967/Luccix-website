@@ -79,20 +79,16 @@
             <div id="contact-error" class="success-flash" style="display: none; background: #ffebee; color: #c62828; border-left: 5px solid #c62828;">
                 Oops! There was a problem sending your message. Please try again.
             </div>
-            
-            <form id="contact-form" action="https://formspree.io" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
-                <div>
-                    <label>Your Email Address:</label>
-                    <input type="email" name="_replyto" placeholder="name@example.com" required>
-                </div>
+                      <!-- Formspree Integration with your custom ID -->
+            <form action="https://formspree.io/f/meaerrwy" method="POST">
+                <label>Your Email Address:</label>
+                <input type="email" name="_replyto" placeholder="name@example.com" required>
                 
-                <div>
-                    <label>Your Ideas or Questions:</label>
-                    <textarea name="message" rows="5" placeholder="Share your feedback or design concepts with us..." required></textarea>
-                </div>
+                <label>Your Ideas or Questions:</label>
+                <textarea name="message" rows="5" placeholder="Share your feedback or design concepts with us..." required></textarea>
                 
-                <button type="submit" id="btn-submit" class="btn-submit">Send Message</button>
-            </form>
+                <button type="submit" class="btn-submit">Send Message</button>
+            </form>           
         </div>
     </div>
 
