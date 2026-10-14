@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- DEIN ECHTER GOOGLE ADSENSE CODE AUS DEM SCREENSHOT -->
+    <!-- Google AdSense -->
     <script async src="https://googlesyndication.com" crossorigin="anonymous"></script>
     
     <title>LUCCIX | Collection Voting & Community</title>
@@ -27,14 +27,14 @@
         .btn-vote.active:hover { background: #b71c1c; border-color: #b71c1c; }
 
         /* Contact Form Styles */
-        .contact-section { background: white; border-top: 1px solid #eee; padding: 50px 20px; text-align: center; }
+        .contact-section { background: white; border-top: 1px solid #eee; padding: 60px 20px; text-align: center; }
         .contact-container { max-width: 500px; margin: 0 auto; text-align: left; }
-        .contact-container h2 { text-align: center; text-transform: uppercase; letter-spacing: 3px; font-size: 22px; margin-bottom: 30px; }
+        .contact-container h2 { text-align: center; text-transform: uppercase; letter-spacing: 3px; font-size: 22px; margin-bottom: 30px; color: #111; }
         .contact-container label { display: block; margin-top: 15px; color: #444; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
         .contact-container input, .contact-container textarea { width: 100%; padding: 12px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
         .btn-submit { width: 100%; padding: 14px; margin-top: 20px; background: #111; color: white; border: none; border-radius: 4px; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.2s; }
         .btn-submit:hover { background: #333; }
-        .success-flash { background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 4px; text-align: center; margin-bottom: 20px; font-size: 14px; }
+        .success-flash { padding: 15px; border-radius: 4px; text-align: center; margin-bottom: 20px; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -48,6 +48,7 @@
         [ADVERTISEMENT SPACE]
     </div>
 
+    <!-- Galerie -->
     <div class="galerie">
         {% for id, info in klamotten.items() %}
         <div class="produkt-karte">
@@ -65,34 +66,32 @@
         </div>
         {% endfor %}
     </div>
- <!-- Contact Section -->
-    <div class="contact-section" style="background: white; border-top: 1px solid #eee; padding: 60px 20px; text-align: center;">
-        <div class="contact-container" style="max-width: 500px; margin: 0 auto; text-align: left;">
-            <h2 style="text-align: center; text-transform: uppercase; letter-spacing: 3px; font-size: 22px; margin-bottom: 30px; color: #111;">Get in Touch</h2>
+
+    <!-- Contact Section -->
+    <div class="contact-section">
+        <div class="contact-container">
+            <h2>Get in Touch</h2>
             
-            <!-- Dynamische Erfolgsmeldung (Grün) -->
-            <div id="contact-success" class="success-flash" style="display: none; background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 4px; text-align: center; margin-bottom: 20px; font-size: 14px;">
+            <div id="contact-success" class="success-flash" style="display: none; background: #e8f5e9; color: #2e7d32;">
                 Thank you! Your message has been sent successfully to the LUCCIX team.
             </div>
 
-            <!-- Dynamische Fehlermeldung (Rot) -->
-            <div id="contact-error" class="success-flash" style="display: none; background: #ffebee; color: #c62828; padding: 15px; border-radius: 4px; text-align: center; margin-bottom: 20px; font-size: 14px; border-left: 5px solid #c62828;">
+            <div id="contact-error" class="success-flash" style="display: none; background: #ffebee; color: #c62828; border-left: 5px solid #c62828;">
                 Oops! There was a problem sending your message. Please try again.
             </div>
             
-            <!-- Das Formular schickt die Daten direkt an deine Formspree-ID -->
-            <form id="contact-form" action="https://formspree.io/f/mearrwy" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+            <form id="contact-form" action="https://formspree.io" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
                 <div>
-                    <label style="display: block; color: #444; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Your Email Address:</label>
-                    <input type="email" name="_replyto" placeholder="name@example.com" required style="width: 100%; padding: 12px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 14px;">
+                    <label>Your Email Address:</label>
+                    <input type="email" name="_replyto" placeholder="name@example.com" required>
                 </div>
                 
                 <div>
-                    <label style="display: block; color: #444; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Your Ideas or Questions:</label>
-                    <textarea name="message" rows="5" placeholder="Share your feedback or design concepts with us..." required style="width: 100%; padding: 12px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical;"></textarea>
+                    <label>Your Ideas or Questions:</label>
+                    <textarea name="message" rows="5" placeholder="Share your feedback or design concepts with us..." required></textarea>
                 </div>
                 
-                <button type="submit" id="btn-submit" class="btn-submit" style="width: 100%; padding: 14px; background: #111; color: white; border: none; border-radius: 4px; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.2s;">Send Message</button>
+                <button type="submit" id="btn-submit" class="btn-submit">Send Message</button>
             </form>
         </div>
     </div>
@@ -101,71 +100,58 @@
         [ADVERTISEMENT SPACE]
     </div>
 
-    <!-- Footer with Imprint & Privacy Policy -->
+    <!-- Footer -->
     <footer style="background: white; border-top: 1px solid #eee; padding: 40px 20px; text-align: center; font-size: 13px; color: #666; margin-top: 50px;">
         <div style="max-width: 800px; margin: 0 auto; line-height: 1.6;">
             <h3 style="text-transform: uppercase; letter-spacing: 2px; color: #111; font-size: 16px; margin-bottom: 20px;">Legal Information</h3>
             
             <div style="display: flex; flex-wrap: wrap; justify-content: space-around; text-align: left; gap: 30px;">
-                <!-- Imprint (Impressum) -->
                 <div style="flex: 1; min-width: 250px;">
                     <h4 style="text-transform: uppercase; letter-spacing: 1px; color: #111; margin-bottom: 10px;">Imprint</h4>
                     <p><strong>Operator:</strong> Luccix clothing</p>
                     <p><strong>Address:</strong> Maximilianstr 28, 75172 Pforzheim, Germany</p>
                     <p><strong>Contact:</strong> Luccix@web.de</p>
                 </div>
-
-                <!-- Privacy Policy -->
-                <div style="flex: 1; min-width: 250px;">
-                    <h4 style="text-transform: uppercase; letter-spacing: 1px; color: #111; margin-bottom: 10px;">Privacy Policy</h4>
-                    <p>This website uses cookies to store user voting data (like status for specific designs) for 30 days to prevent spam voting.</p>
-                    <p>This website integrates Google AdSense, a service for including advertisements from Google Inc. Google AdSense uses cookies to analyze website traffic and serve personalized ads based on your previous visits.</p>
-                </div>
             </div>
-            
-            <p style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; font-size: 11px;">&copy; 2026 LUCCIX. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- JavaScript für lautlosen Hintergrundversand -->
+    <!-- JavaScript für reibungslose Formspree-Übermittlung -->
     <script>
-        const form = document.getElementById('contact-form');
-        const successMessage = document.getElementById('contact-success');
-        const errorMessage = document.getElementById('contact-error');
-        const submitButton = document.getElementById('btn-submit');
+        const form = document.getElementById("contact-form");
+        const successDiv = document.getElementById("contact-success");
+        const errorDiv = document.getElementById("contact-error");
+        const submitBtn = document.getElementById("btn-submit");
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            errorMessage.style.display = 'none';
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Sending...";
+
+            const data = new FormData(form);
             
-            submitButton.innerText = 'Sending...';
-            submitButton.disabled = true;
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
 
-            const formData = new FormData(form);
-
-            // HIER WIRD DIE URL DIREKT FEST ALS TEXT EINGETRAGEN:
-            fetch('https://formspree.io', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
                 if (response.ok) {
+                    successDiv.style.display = "block";
+                    errorDiv.style.display = "none";
                     form.reset();
-                    form.style.display = 'none';
-                    successMessage.style.display = 'block';
                 } else {
-                    errorMessage.style.display = 'block';
-                    submitButton.innerText = 'Send Message';
-                    submitButton.disabled = false;
+                    throw new Error("Senden fehlgeschlagen");
                 }
-            })
-            .catch(error => {
-                errorMessage.style.display = 'block';
-                submitButton.innerText = 'Send Message';
-                submitButton.disabled = false;
-            });
+            } catch (error) {
+                errorDiv.style.display = "block";
+                successDiv.style.display = "none";
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Send Message";
+            }
         });
     </script>
+</body>
+</html>

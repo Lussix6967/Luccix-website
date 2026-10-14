@@ -4,8 +4,11 @@ import os
 
 app = Flask(__name__)
 
-# Pfad zur Datei, in der die Stimmen dauerhaft gespeichert werden
-VOTES_FILE = "votes.json"
+# WICHTIG FÜR RENDER: Wenn die App online läuft, nutzen wir den sicheren /tmp/ Ordner für Schreibrechte
+if os.environ.get("RENDER"):
+    VOTES_FILE = "/tmp/votes.json"
+else:
+    VOTES_FILE = "votes.json"
 
 # Standard-Datenstruktur, falls die Datei noch nicht existiert
 DEFAULT_DATA = {
@@ -24,9 +27,12 @@ DEFAULT_DATA = {
 def load_votes():
     """Laedt die aktuellen Stimmen aus der JSON-Datei."""
     if not os.path.exists(VOTES_FILE):
-        with open(VOTES_FILE, "w") as f:
-            json.dump(DEFAULT_DATA, f)
-        return DEFAULT_DATA
+        try:
+            with open(VOTES_FILE, "w") as f:
+                json.dump(DEFAULT_DATA, f)
+            return DEFAULT_DATA
+        except Exception:
+            return DEFAULT_DATA
     
     try:
         with open(VOTES_FILE, "r") as f:
@@ -36,8 +42,11 @@ def load_votes():
 
 def save_votes(data):
     """Speichert die Stimmen dauerhaft in der JSON-Datei."""
-    with open(VOTES_FILE, "w") as f:
-        json.dump(data, f)
+    try:
+        with open(VOTES_FILE, "w") as f:
+            json.dump(data, f)
+    except Exception as e:
+        print(f"Fehler beim Speichern der Datei: {e}")
 
 @app.route("/")
 def home():
@@ -75,14 +84,13 @@ def vote(artikel_id):
         # Stimmen dauerhaft in der Datei speichern
         save_votes(klamotten_daten)
 
-        # Cookie im Browser aktualisieren
+        # Cookie im Browser aktualisieren (samesite="Lax" schützt vor Sperren in modernen Browsern)
         response = make_response(redirect(url_for("home")))
-        response.set_cookie("voted_items", json.dumps(voted_items), max_age=30*24*60*60) # 30 Tage gueltig
+        response.set_cookie("voted_items", json.dumps(voted_items), max_age=30*24*60*60, samesite="Lax")
         return response
         
     return redirect(url_for("home"))
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
