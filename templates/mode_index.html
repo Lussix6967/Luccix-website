@@ -334,13 +334,13 @@
         if (e.target === modalPrivacy) modalPrivacy.style.display = "none";
     });
 
-            // 3. Dark Mode mit Logo-Steuerung
+        // 3. Dark Mode mit Logo- und Text-Steuerung
         const themeToggle = document.getElementById('theme-toggle');
+        const themeText = document.getElementById('theme-text');
         const currentTheme = localStorage.getItem('theme');
         const logoLight = document.getElementById('footer-logo-light');
         const logoDark = document.getElementById('footer-logo-dark');
 
-        // Funktion, um die Logos je nach Modus richtig zu schalten
         function updateLogos(theme) {
             if (logoLight && logoDark) {
                 if (theme === 'dark') {
@@ -353,15 +353,22 @@
             }
         }
 
+        // Beim ersten Laden den gespeicherten Modus aktivieren
         if (currentTheme) {
             document.documentElement.setAttribute('data-theme', currentTheme);
             updateLogos(currentTheme);
             if (currentTheme === 'dark' && themeToggle) {
                 themeToggle.style.backgroundColor = '#fff';
                 themeToggle.style.color = '#000';
+                if (themeText) themeText.innerText = 'Dark';
+            } else if (themeToggle) {
+                themeToggle.style.backgroundColor = '#000';
+                themeToggle.style.color = '#fff';
+                if (themeText) themeText.innerText = 'Light';
             }
         }
 
+        // Beim Klicken den Modus umschalten
         if (themeToggle) {
             themeToggle.addEventListener('click', () => {
                 let theme = document.documentElement.getAttribute('data-theme');
@@ -370,12 +377,14 @@
                     localStorage.setItem('theme', 'light');
                     themeToggle.style.backgroundColor = '#000';
                     themeToggle.style.color = '#fff';
+                    if (themeText) themeText.innerText = 'Light';
                     updateLogos('light');
                 } else {
                     document.documentElement.setAttribute('data-theme', 'dark');
                     localStorage.setItem('theme', 'dark');
                     themeToggle.style.backgroundColor = '#fff';
                     themeToggle.style.color = '#000';
+                    if (themeText) themeText.innerText = 'Dark';
                     updateLogos('dark');
                 }
             });
