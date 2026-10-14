@@ -128,11 +128,22 @@
             background-color: var(--modal-bg) !important;
             color: var(--text-color) !important;
 
-            /* Im Dark Mode wird das Bild automatisch gegen das weiße Logo ausgetauscht */
-[data-theme="dark"] .footer-brand-logo {
-    content: url("/static/logo_white.png");
-
+          /* Standardmäßig das weiße Logo unsichtbar machen */
+        .logo-dark { 
+            display: none !important; 
         }
+        .logo-light { 
+            display: inline-block !important; 
+        }
+
+        /* Wenn der Dark Mode aktiv ist: Schwarz verstecken, Weiß zeigen */
+        [data-theme="dark"] .logo-light { 
+            display: none !important; 
+        }
+        [data-theme="dark"] .logo-dark { 
+            display: inline-block !important; 
+        }
+
     </style>
 </head>
 <body>
@@ -206,9 +217,10 @@
             <a href="javascript:void(0);" id="open-privacy" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Privacy Policy</a>
         </p>
     </footer>
- <!-- Dynamisches Brand-Logo ohne Rahmen -->
+    <!-- Dynamisches Brand-Logo ohne Text-Platzhalter und Rahmen -->
     <div style="margin: 20px auto 15px auto; display: flex; justify-content: center; align-items: center;">
-        <img class="footer-brand-logo" src="/static/logo_black.png" alt="LUCCIX Logo" style="width: 100px; height: auto; border: none; background: transparent; outline: none; transition: content 0.2s;">
+        <img class="logo-light" src="/static/logo_black.png" alt="" style="width: 100px; height: auto; border: none; background: transparent; outline: none;">
+        <img class="logo-dark" src="/static/logo_white.png" alt="" style="width: 100px; height: auto; border: none; background: transparent; outline: none;">
     </div>
 
     <!-- POP-UP MODALS -->
