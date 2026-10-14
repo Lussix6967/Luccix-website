@@ -127,6 +127,11 @@
         #modal-impressum > div, #modal-privacy > div {
             background-color: var(--modal-bg) !important;
             color: var(--text-color) !important;
+
+            /* Im Dark Mode wird das Bild automatisch gegen das weiße Logo ausgetauscht */
+[data-theme="dark"] .footer-brand-logo {
+    content: url("/static/logo_white.png");
+
         }
     </style>
 </head>
@@ -201,6 +206,10 @@
             <a href="javascript:void(0);" id="open-privacy" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Privacy Policy</a>
         </p>
     </footer>
+ <!-- Dynamisches Brand-Logo ohne Rahmen -->
+    <div style="margin: 20px auto 15px auto; display: flex; justify-content: center; align-items: center;">
+        <img class="footer-brand-logo" src="/static/logo_black.png" alt="LUCCIX Logo" style="width: 100px; height: auto; border: none; background: transparent; outline: none; transition: content 0.2s;">
+    </div>
 
     <!-- POP-UP MODALS -->
     <div id="modal-impressum" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center;">
