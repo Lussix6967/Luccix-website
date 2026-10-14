@@ -128,20 +128,32 @@
             background-color: var(--modal-bg) !important;
             color: var(--text-color) !important;
 
-          /* Standardmäßig das weiße Logo unsichtbar machen */
+                /* Standardmäßig das weiße Logo unsichtbar machen */
         .logo-dark { 
-            display: none !important; 
+            opacity: 0 !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
         }
         .logo-light { 
-            display: inline-block !important; 
+            opacity: 1 !important;
+            visibility: visible !important;
+            width: 100px !important;
+            height: auto !important;
         }
 
         /* Wenn der Dark Mode aktiv ist: Schwarz verstecken, Weiß zeigen */
         [data-theme="dark"] .logo-light { 
-            display: none !important; 
+            opacity: 0 !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
         }
         [data-theme="dark"] .logo-dark { 
-            display: inline-block !important; 
+            opacity: 1 !important;
+            visibility: visible !important;
+            width: 100px !important;
+            height: auto !important;
         }
 
     </style>
@@ -219,8 +231,8 @@
     </footer>
     <!-- Dynamisches Brand-Logo ohne Text-Platzhalter und Rahmen -->
     <div style="margin: 20px auto 15px auto; display: flex; justify-content: center; align-items: center;">
-        <img class="logo-light" src="/static/logo_black.png" alt="" style="width: 100px; height: auto; border: none; background: transparent; outline: none;">
-        <img class="logo-dark" src="/static/logo_white.png" alt="" style="width: 100px; height: auto; border: none; background: transparent; outline: none;">
+        <img class="logo-light" src="/static/logo_black.png" alt="" style="border: none; background: transparent; outline: none;">
+        <img class="logo-dark" src="/static/logo_white.png" alt="" style="border: none; background: transparent; outline: none;">        
     </div>
 
     <!-- POP-UP MODALS -->
