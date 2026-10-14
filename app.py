@@ -90,7 +90,13 @@ def vote(artikel_id):
         return response
         
     return redirect(url_for("home"))
+# ... hier endet deine "vote"-Funktion mit return redirect(url_for("home"))
+
+@app.route('/danke')
+def danke():
+    return render_template('danke.html')
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+

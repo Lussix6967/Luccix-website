@@ -2,35 +2,32 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Sternzeichen Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danke für deine Nachricht!</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; }
-        h2 { text-align: center; color: #333; }
-        label { display: block; margin-top: 15px; color: #666; }
-        input { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        button { width: 100%; padding: 10px; margin-top: 20px; background: #4CAF50; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
-        button:hover { background: #45a049; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 { color: blue; } /* Hier kannst du deine blaue "Success"-Farbe nutzen */
+        a { color: #333; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Sternzeichen bestimmen</h2>
-        <form method="POST">
-            <label>Name:</label>
-            <input type="text" name="name" required>
-            
-            <label>Alter:</label>
-            <input type="number" name="alter" required>
-            
-            <label>Herkunft:</label>
-            <input type="text" name="herkunft" required>
-            
-            <label>Geburtsdatum:</label>
-            <input type="date" name="geburtsdatum" required>
-            
-            <button type="submit">OK (Bestätigen)</button>
-        </form>
+        <h1>Vielen Dank!</h1>
+        <p>Deine Nachricht wurde erfolgreich an uns übermittelt.</p>
+        <br>
+        <a href="index.html">← Zurück zur Startseite</a>
     </div>
 </body>
 </html>
