@@ -247,10 +247,11 @@
         }
     });
 
-    // Pop-up Steuerung für Impressum und Datenschutz
+// Pop-up Steuerung für Impressum und Datenschutz
 const modalImpressum = document.getElementById("modal-impressum");
 const modalPrivacy = document.getElementById("modal-privacy");
 
+// ACHTUNG: Hier muss ein Bindestrich ("-") stehen!
 document.getElementById("open-impressum").addEventListener("click", function(e) { 
     e.preventDefault(); 
     if(modalImpressum) modalImpressum.style.display = "flex"; 
@@ -306,8 +307,8 @@ themeToggle.addEventListener('click', () => {
 <footer style="text-align: center; padding: 20px; margin-top: 50px; font-family: Arial, sans-serif; font-size: 13px; border-top: 1px solid #eee;">
     <p>&copy; 2026 LUCCIX. All rights reserved.</p>
     <p>
-<a href="javascript:void(0);" id="open-impressum" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Impressum</a> | 
-<a href="javascript:void(0);" id="open-privacy" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Privacy Policy</a>
+        <a href="javascript:void(0);" id="open-impressum" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Impressum</a> | 
+        <a href="javascript:void(0);" id="open-privacy" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Privacy Policy</a>
     </p>
 </footer>
 
