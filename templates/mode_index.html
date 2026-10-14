@@ -166,6 +166,7 @@
         </div>
         {% endfor %}
     </div>
+
 <!-- 1. Kontakt-Bereich mit modernem Design -->
 <div class="contact-section" style="max-width: 600px; margin: 40px auto; padding: 20px; font-family: Arial, sans-serif;">
     <h2 style="text-align: center; margin-bottom: 30px;">GET IN TOUCH</h2>
@@ -245,20 +246,34 @@
             submitBtn.disabled = false;
         }
     });
+
     // Pop-up Steuerung für Impressum und Datenschutz
 const modalImpressum = document.getElementById("modal-impressum");
 const modalPrivacy = document.getElementById("modal-privacy");
 
-document.getElementById("open-impressum").addEventListener("click", (e) => { e.preventDefault(); modalImpressum.style.display = "flex"; });
-document.getElementById("open-privacy").addEventListener("click", (e) => { e.preventDefault(); modalPrivacy.style.display = "flex"; });
+document.getElementById("open-impressum").addEventListener("click", function(e) { 
+    e.preventDefault(); 
+    if(modalImpressum) modalImpressum.style.display = "flex"; 
+});
 
-document.getElementById("close-impressum").addEventListener("click", () => { modalImpressum.style.display = "none"; });
-document.getElementById("close-privacy").addEventListener("click", () => { modalPrivacy.style.display = "none"; });
+document.getElementById("open-privacy").addEventListener("click", function(e) { 
+    e.preventDefault(); 
+    if(modalPrivacy) modalPrivacy.style.display = "flex"; 
+});
 
-window.addEventListener("click", (e) => {
+document.getElementById("close-impressum").addEventListener("click", function() { 
+    if(modalImpressum) modalImpressum.style.display = "none"; 
+});
+
+document.getElementById("close-privacy").addEventListener("click", function() { 
+    if(modalPrivacy) modalPrivacy.style.display = "none"; 
+});
+
+window.addEventListener("click", function(e) {
     if (e.target === modalImpressum) modalImpressum.style.display = "none";
     if (e.target === modalPrivacy) modalPrivacy.style.display = "none";
 });
+
 // Dark Mode Steuerung
 const themeToggle = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme');
@@ -291,8 +306,8 @@ themeToggle.addEventListener('click', () => {
 <footer style="text-align: center; padding: 20px; margin-top: 50px; font-family: Arial, sans-serif; font-size: 13px; border-top: 1px solid #eee;">
     <p>&copy; 2026 LUCCIX. All rights reserved.</p>
     <p>
-        <a href="#" id="open-impressum" style="color: #000; margin: 0 10px; text-decoration: none; font-weight: bold;">Impressum</a> | 
-        <a href="#" id="open-privacy" style="color: #000; margin: 0 10px; text-decoration: none; font-weight: bold;">Privacy Policy</a>
+<a href="javascript:void(0);" id="open-impressum" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Impressum</a> | 
+<a href="javascript:void(0);" id="open-privacy" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Privacy Policy</a>
     </p>
 </footer>
 
@@ -341,4 +356,5 @@ themeToggle.addEventListener('click', () => {
 </div>
 </div>
 </body> <!-- Das originale Ende deiner Datei -->
+
 </html>
