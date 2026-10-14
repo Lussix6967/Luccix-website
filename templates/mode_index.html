@@ -216,15 +216,14 @@
             <a href="javascript:void(0);" id="open-privacy" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Privacy Policy</a>
         </p>
     </footer>
-
-    <!-- Dynamisches Brand-Logo ohne Rahmen und 10% kleiner -->
+    <!-- Dynamisches Brand-Logo mit JavaScript-Steuerung -->
     <div style="margin: 20px auto 15px auto; display: flex; justify-content: center; align-items: center;">
-        <!-- Schwarzes Logo für den Light Mode (links auf deinem Bild) -->
-        <img class="logo-light" src="/static/logo_black.png" alt="" style="width: 90px; height: auto; border: none; background: transparent; outline: none;">
-        <!-- Weißes Logo für den Dark Mode (rechts auf deinem Bild) -->
-        <img class="logo-dark" src="/static/logo_white.png" alt="" style="width: 90px; height: auto; border: none; background: transparent; outline: none;">
+        <!-- Schwarzes Logo -->
+        <img id="footer-logo-light" class="logo-light" src="/static/logo_black.png" alt="" style="width: 90px; height: auto; border: none; background: transparent; outline: none;">
+        <!-- Weißes Logo -->
+        <img id="footer-logo-dark" class="logo-dark" src="/static/logo_white.png" alt="" style="width: 90px; height: auto; border: none; background: transparent; outline: none; display: none;">
     </div>
-    
+
     <!-- POP-UP MODALS -->
     <div id="modal-impressum" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center;">
         <div style="background: var(--bg-color); color: var(--text-color); padding: 30px; max-width: 500px; width: 90%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; font-family: Arial, sans-serif; max-height: 80vh; overflow-y: auto; text-align: left;">
@@ -330,33 +329,52 @@
         if (e.target === modalPrivacy) modalPrivacy.style.display = "none";
     });
 
-    // 3. Dark Mode
-    const themeToggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme');
+            // 3. Dark Mode mit Logo-Steuerung
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+        const logoLight = document.getElementById('footer-logo-light');
+        const logoDark = document.getElementById('footer-logo-dark');
 
-    if (currentTheme) {
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        if (currentTheme === 'dark' && themeToggle) {
-            themeToggle.style.backgroundColor = '#fff';
-            themeToggle.style.color = '#000';
+        // Funktion, um die Logos je nach Modus richtig zu schalten
+        function updateLogos(theme) {
+            if (logoLight && logoDark) {
+                if (theme === 'dark') {
+                    logoLight.style.display = 'none';
+                    logoDark.style.display = 'inline-block';
+                } else {
+                    logoLight.style.display = 'inline-block';
+                    logoDark.style.display = 'none';
+                }
+            }
         }
-    }
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            let theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-                themeToggle.style.backgroundColor = '#000';
-                themeToggle.style.color = '#fff';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
+
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            updateLogos(currentTheme);
+            if (currentTheme === 'dark' && themeToggle) {
                 themeToggle.style.backgroundColor = '#fff';
                 themeToggle.style.color = '#000';
             }
-        });
-    }
+        }
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                let theme = document.documentElement.getAttribute('data-theme');
+                if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.style.backgroundColor = '#000';
+                    themeToggle.style.color = '#fff';
+                    updateLogos('light');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.style.backgroundColor = '#fff';
+                    themeToggle.style.color = '#000';
+                    updateLogos('dark');
+                }
+            });
+        }
 
         // 4. AJAX Like-System (Verhindert das Neuladen der Seite)
     const voteForms = document.querySelectorAll(".vote-form");
