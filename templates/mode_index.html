@@ -172,7 +172,7 @@
 
         <div id="status-box" style="display: none; padding: 15px; margin-bottom: 20px; border-radius: 4px; text-align: center; font-weight: bold;"></div>
 
-        <form id="contact-form" action="https://formspree.io/f/meaerrwy" method="POST" style="display: flex; flex-direction: column; gap: 20px;">
+        <form id="contact-form" action="https://formspree.io" method="POST" style="display: flex; flex-direction: column; gap: 20px;">
             <div style="display: flex; flex-direction: column; gap: 8px;">
                 <label style="font-weight: bold; font-size: 14px;">Your Email Address:</label>
                 <input type="email" name="email" placeholder="name@example.com" required 
@@ -192,9 +192,41 @@
         </form>
     </div>
 
-   <!-- JavaScript für Formspree, Pop-ups & Dark Mode -->
+    <footer style="text-align: center; padding: 20px; margin-top: 50px; font-family: Arial, sans-serif; font-size: 13px; border-top: 1px solid var(--card-border);">
+        <p>&copy; 2026 LUCCIX. All rights reserved.</p>
+        <p>
+            <a href="javascript:void(0);" id="open-impressum" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Impressum</a> | 
+            <a href="javascript:void(0);" id="open-privacy" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Privacy Policy</a>
+        </p>
+    </footer>
+
+    <!-- POP-UP MODALS -->
+    <div id="modal-impressum" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: var(--bg-color); color: var(--text-color); padding: 30px; max-width: 500px; width: 90%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; font-family: Arial, sans-serif; max-height: 80vh; overflow-y: auto; text-align: left;">
+            <span id="close-impressum" style="position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
+            <h2 style="margin-top: 0; border-bottom: 2px solid var(--text-color); padding-bottom: 10px;">Impressum</h2>
+            <p><strong>Angaben gemäß § 5 DDG:</strong></p>
+            <p>Paul Sebastian Sotko<br>Maximilianstr. 28<br>75172 Pforzheim</p>
+            <p><strong>Contact:</strong><br>E-Mail: luccix@web.de</p>
+            <p><strong>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:</strong><br>Paul Sebastian Sotko<br>Maximilianstr. 28<br>75172 Pforzheim</p>
+            <p style="font-size: 11px; color: #666; margin-top: 20px;">EU-Streitschlichtung: Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://europa.eu" target="_blank" style="color: var(--text-color);">https://europa.eu</a>.</p>
+        </div>
+    </div>
+
+    <div id="modal-privacy" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: var(--bg-color); color: var(--text-color); padding: 30px; max-width: 600px; width: 90%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; font-family: Arial, sans-serif; max-height: 80vh; overflow-y: auto; line-height: 1.5; text-align: left;">
+            <span id="close-privacy" style="position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
+            <h2 style="margin-top: 0; border-bottom: 2px solid var(--text-color); padding-bottom: 10px;">Privacy Policy</h2>
+            <p><strong>1. General Information</strong><br>We take the protection of your personal data very seriously. Your data will be treated confidentially and in accordance with the statutory data protection regulations (GDPR / DSGVO).</p>
+                    <p><strong>2. Contact Form (Formspree)</strong><br>If you send us inquiries via our contact form, the data you enter will be transmitted to and stored by our technical service provider <strong>Formspree Inc.</strong> (USA) to process your request. By submitting the form, you consent to this processing.</p>
+        <p><strong>3. Cookies and Voting Data</strong><br>Our website uses essential cookies and local session data to remember which designs you have voted for ("Likes"). This is required purely for technical functionality to prevent double voting.</p>
+        <p><strong>4. Hosting</strong><br>Our website server automatically collects server log files (such as your IP address, browser type, and time of access). This is technically necessary to display the website stably and securely.</p>
+        <p><strong>5. Your Rights</strong><br>You have the right to request information about your stored data free of charge at any time, or demand its correction or deletion. For inquiries, please contact the email address provided in our Impressum.</p>
+    </div>
+</div>
+
 <script>
-    // 1. Formspree Kontaktformular Steuerung
+    // 1. Formspree Kontaktformular
     const form = document.getElementById("contact-form");
     const statusBox = document.getElementById("status-box");
     const submitBtn = document.getElementById("submit-btn");
@@ -210,14 +242,12 @@
             if (submitBtn) submitBtn.disabled = true;
 
             const data = new URLSearchParams(new FormData(event.target));
-            
             try {
                 const response = await fetch(form.action, {
                     method: form.method,
                     body: data,
                     headers: { 'Accept': 'application/json' }
                 });
-                
                 if (response.ok) {
                     statusBox.style.backgroundColor = "#e6f2ff";
                     statusBox.style.color = "blue";
@@ -241,10 +271,9 @@
         });
     }
 
-    // 2. Pop-up Steuerung für Impressum und Datenschutz
+    // 2. Pop-up Steuerung
     const modalImpressum = document.getElementById("modal-impressum");
     const modalPrivacy = document.getElementById("modal-privacy");
-
     const openImpressumBtn = document.getElementById("open-impressum");
     const openPrivacyBtn = document.getElementById("open-privacy");
     const closeImpressumBtn = document.getElementById("close-impressum");
@@ -256,32 +285,28 @@
             if (modalImpressum) modalImpressum.style.display = "flex"; 
         });
     }
-
     if (openPrivacyBtn) {
         openPrivacyBtn.addEventListener("click", function(e) { 
             e.preventDefault(); 
             if (modalPrivacy) modalPrivacy.style.display = "flex"; 
         });
     }
-
     if (closeImpressumBtn) {
         closeImpressumBtn.addEventListener("click", function() { 
             if (modalImpressum) modalImpressum.style.display = "none"; 
         });
     }
-
     if (closePrivacyBtn) {
         closePrivacyBtn.addEventListener("click", function() { 
             if (modalPrivacy) modalPrivacy.style.display = "none"; 
         });
     }
-
     window.addEventListener("click", function(e) {
         if (e.target === modalImpressum) modalImpressum.style.display = "none";
         if (e.target === modalPrivacy) modalPrivacy.style.display = "none";
     });
 
-    // 3. Dark Mode Steuerung
+    // 3. Dark Mode
     const themeToggle = document.getElementById('theme-toggle');
     const currentTheme = localStorage.getItem('theme');
 
@@ -292,7 +317,6 @@
             themeToggle.style.color = '#000';
         }
     }
-
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             let theme = document.documentElement.getAttribute('data-theme');
@@ -310,39 +334,6 @@
         });
     }
 </script>
-
-       <!-- HIER JETZT DAS HTML EINFÜGEN -->
-    <footer style="text-align: center; padding: 20px; margin-top: 50px; font-family: Arial, sans-serif; font-size: 13px; border-top: 1px solid var(--card-border);">
-        <p>&copy; 2026 LUCCIX. All rights reserved.</p>
-        <p>
-            <a href="javascript:void(0);" id="open-impressum" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Impressum</a> | 
-            <a href="javascript:void(0);" id="open-privacy" style="color: var(--text-color); margin: 0 10px; text-decoration: none; font-weight: bold;">Privacy Policy</a>
-        </p>
-    </footer>
-
-    <div id="modal-impressum" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center;">
-        <div style="background: var(--bg-color); color: var(--text-color); padding: 30px; max-width: 500px; width: 90%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; font-family: Arial, sans-serif; max-height: 80vh; overflow-y: auto; text-align: left;">
-            <span id="close-impressum" style="position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
-            <h2 style="margin-top: 0; border-bottom: 2px solid var(--text-color); padding-bottom: 10px;">Impressum</h2>
-            <p><strong>Angaben gemäß § 5 DDG:</strong></p>
-            <p>Paul Sebastian Sotko<br>Maximilianstr. 28<br>75172 Pforzheim</p>
-            <p><strong>Contact:</strong><br>E-Mail: luccix@web.de</p>
-            <p><strong>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:</strong><br>Paul Sebastian Sotko<br>Maximilianstr. 28<br>75172 Pforzheim</p>
-            <p style="font-size: 11px; color: #666; margin-top: 20px;">EU-Streitschlichtung: Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://europa.eu" target="_blank" style="color: var(--text-color);">https://europa.eu</a>.</p>
-        </div>
-    </div>
-
-    <div id="modal-privacy" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center;">
-        <div style="background: var(--bg-color); color: var(--text-color); padding: 30px; max-width: 600px; width: 90%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; font-family: Arial, sans-serif; max-height: 80vh; overflow-y: auto; line-height: 1.5; text-align: left;">
-            <span id="close-privacy" style="position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
-            <h2 style="margin-top: 0; border-bottom: 2px solid var(--text-color); padding-bottom: 10px;">Privacy Policy</h2>
-            <p><strong>1. General Information</strong><br>We take the protection of your personal data very seriously. Your data will be treated confidentially and in accordance with the statutory data protection regulations (GDPR / DSGVO).</p>
-            <p><strong>2. Contact Form (Formspree)</strong><br>If you send us inquiries via our contact form, the data you enter will be transmitted to and stored by our technical service provider <strong>Formspree Inc.</strong> (USA) to process your request. By submitting the form, you consent to this processing.</p>
-            <p><strong>3. Cookies and Voting Data</strong><br>Our website uses essential cookies and local session data to remember which designs you have voted for ("Likes"). This is required purely for technical functionality to prevent double voting.</p>
-            <p><strong>4. Hosting</strong><br>Our website server automatically collects server log files (such as your IP address, browser type, and time of access). This is technically necessary to display the website stably and securely.</p>
-            <p><strong>5. Your Rights</strong><br>You have the right to request information about your stored data free of charge at any time, or demand its correction or deletion. For inquiries, please contact the email address provided in our Impressum.</p>
-        </div>
-    </div>
-
 </body>
 </html>
+
