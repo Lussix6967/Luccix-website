@@ -66,92 +66,84 @@
         </div>
         {% endfor %}
     </div>
+<!-- 1. Kontakt-Bereich mit modernem Design -->
+<div class="contact-section" style="max-width: 600px; margin: 40px auto; padding: 20px; font-family: Arial, sans-serif;">
+    <h2 style="text-align: center; margin-bottom: 30px;">GET IN TOUCH</h2>
 
-    <!-- Contact Section -->
-    <div class="contact-section">
-        <div class="contact-container">
-            <h2>Get in Touch</h2>
-            
-            <div id="contact-success" class="success-flash" style="display: none; background: #e8f5e9; color: #2e7d32;">
-                Thank you! Your message has been sent successfully to the LUCCIX team.
-            </div>
+    <!-- Die Status-Meldung (Wird dynamisch per JS gesteuert) -->
+    <div id="status-box" style="display: none; padding: 15px; margin-bottom: 20px; border-radius: 5px; text-align: center; font-weight: bold;"></div>
 
-            <div id="contact-error" class="success-flash" style="display: none; background: #ffebee; color: #c62828; border-left: 5px solid #c62828;">
-                Oops! There was a problem sending your message. Please try again.
-            </div>
+    <!-- Das Formular (Komplett untereinander und sauber aufgeteilt) -->
+    <form id="contact-form" action="https://formspree.io" method="POST" style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <label style="font-weight: bold; font-size: 14px;">Your Email Address:</label>
+            <input type="email" name="email" placeholder="name@example.com" required 
+                   style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 16px;">
         </div>
-        <!-- Formspree Integration with your custom ID -->
-<form action="https://formspree.io/f/meaerrwy" method="POST">
-    
-    <!-- DIESE ZEILE HIER EINBAUEN -->
-    <input type="hidden" name="_next" value="https://luccix-clothing.com">
-
-    <label>Your Email Address:</label>
-    <input type="email" name="email" placeholder="name@example.com" required>
-    
-    <label>Your Ideas or Questions:</label>
-    <textarea name="message" rows="5" placeholder="Share your feedback or design concepts with us..." required></textarea>
-    
-    <button type="submit" class="btn-submit">Send Message</button>
-</form>
-    </div>
-
-    <div class="werbung-banner">
-        [ADVERTISEMENT SPACE]
-    </div>
-
-    <!-- Footer -->
-    <footer style="background: white; border-top: 1px solid #eee; padding: 40px 20px; text-align: center; font-size: 13px; color: #666; margin-top: 50px;">
-        <div style="max-width: 800px; margin: 0 auto; line-height: 1.6;">
-            <h3 style="text-transform: uppercase; letter-spacing: 2px; color: #111; font-size: 16px; margin-bottom: 20px;">Legal Information</h3>
-            
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; text-align: left; gap: 30px;">
-                <div style="flex: 1; min-width: 250px;">
-                    <h4 style="text-transform: uppercase; letter-spacing: 1px; color: #111; margin-bottom: 10px;">Imprint</h4>
-                    <p><strong>Operator:</strong> Luccix clothing</p>
-                    <p><strong>Address:</strong> Maximilianstr 28, 75172 Pforzheim, Germany</p>
-                    <p><strong>Contact:</strong> Luccix@web.de</p>
-                </div>
-            </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <label style="font-weight: bold; font-size: 14px;">Your Ideas or Questions:</label>
+            <textarea name="message" rows="5" placeholder="Share your feedback or design concepts with us..." required 
+                      style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 16px; resize: vertical;"></textarea>
         </div>
-    </footer>
+        
+        <button id="submit-btn" type="submit" class="btn-submit" 
+                style="width: 100%; padding: 14px; background-color: #000; color: #fff; border: none; border-radius: 4px; font-weight: bold; font-size: 16px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
+            Send Message
+        </button>
+    </form>
+</div>
 
-    <!-- JavaScript für reibungslose Formspree-Übermittlung -->
-    <script>
-        const form = document.getElementById("contact-form");
-        const successDiv = document.getElementById("contact-success");
-        const errorDiv = document.getElementById("contact-error");
-        const submitBtn = document.getElementById("btn-submit");
+<!-- 2. JavaScript für die reibungslose Übermittlung & Farblogik -->
+<script>
+    const form = document.getElementById("contact-form");
+    const statusBox = document.getElementById("status-box");
+    const submitBtn = document.getElementById("submit-btn");
 
-        form.addEventListener("submit", async function(event) {
-            event.preventDefault();
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Sending...";
+    form.addEventListener("submit", async function(event) {
+        event.preventDefault(); // Verhindert die hässliche Formspree-Weiterleitung
+        
+        // ZUSTAND 1: PENDING (Weiß/Grauer Hintergrund, grauer Text)
+        statusBox.style.display = "block";
+        statusBox.style.backgroundColor = "#f0f0f0";
+        statusBox.style.color = "#666666";
+        statusBox.style.border = "1px solid #ccc";
+        statusBox.innerText = "Wird gesendet...";
+        submitBtn.disabled = true;
 
-            const data = new FormData(form);
+        const data = new FormData(event.target);
+        
+        try {
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
             
-            try {
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                });
-
-                if (response.ok) {
-                    successDiv.style.display = "block";
-                    errorDiv.style.display = "none";
-                    form.reset();
-                } else {
-                    throw new Error("Senden fehlgeschlagen");
-                }
-            } catch (error) {
-                errorDiv.style.display = "block";
-                successDiv.style.display = "none";
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Send Message";
+            if (response.ok) {
+                // ZUSTAND 2: SUCCESS (Blauer Text, hellblauer Hintergrund)
+                statusBox.style.backgroundColor = "#e6f2ff";
+                statusBox.style.color = "blue";
+                statusBox.style.border = "1px solid blue";
+                statusBox.innerText = "Vielen Dank! Deine Nachricht wurde erfolgreich übermittelt.";
+                form.reset(); // Leert das Formular
+            } else {
+                // ZUSTAND 3: ERROR (Rot)
+                statusBox.style.backgroundColor = "#ffe6e6";
+                statusBox.style.color = "red";
+                statusBox.style.border = "1px solid red";
+                statusBox.innerText = "Oops! Es gab ein Problem beim Absenden.";
             }
-        });
-    </script>
-</body>
-</html>
+        } catch (error) {
+            // ZUSTAND 3: ERROR (Rot bei Netzwerkfehler)
+            statusBox.style.backgroundColor = "#ffe6e6";
+            statusBox.style.color = "red";
+            statusBox.style.border = "1px solid red";
+            statusBox.innerText = "Netzwerkfehler. Bitte versuche es später noch einmal.";
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+</script>
+
