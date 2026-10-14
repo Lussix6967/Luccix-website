@@ -2,75 +2,141 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Google AdSense -->
-    <script async src="https://googlesyndication.com" crossorigin="anonymous"></script>
-    
-    <title>LUCCIX | Collection Voting & Community</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUCCIX | Collection Voting</title>
     <style>
-        /* Standard: Light Mode Farben */
-:root {
-    --bg-color: #ffffff;
-    --text-color: #000000;
-    --card-bg: #ffffff;
-    --card-border: #eeeeee;
-    --modal-bg: #ffffff;
-}
+        /* Dark Mode Variablen */
+        :root {
+            --bg-color: #fafafa;
+            --text-color: #111111;
+            --card-bg: #ffffff;
+            --card-border: #eeeeee;
+            --modal-bg: #ffffff;
+        }
 
-/* Automatisch umschalten: Dark Mode Farben */
-[data-theme="dark"] {
-    --bg-color: #121212;
-    --text-color: #ffffff;
-    --card-bg: #1e1e1e;
-    --card-border: #333333;
-    --modal-bg: #1e1e1e;
-}
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --card-bg: #1e1e1e;
+            --card-border: #333333;
+            --modal-bg: #1e1e1e;
+        }
 
-/* Hier verknüpfen wir die Farben mit deinem Body und deinen Modals */
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
-}
-
-/* Überschreibe den Hintergrund deiner Pop-ups für den Dark Mode */
-#modal-impressum > div, #modal-privacy > div {
-    background-color: var(--modal-bg) !important;
-    color: var(--text-color) !important;
-}
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 0; background-color: #fafafa; color: #111; }
-        header { text-align: center; padding: 40px 20px; background: white; border-bottom: 1px solid #eee; }
-        header h1 { margin: 0; font-size: 36px; letter-spacing: 6px; text-transform: uppercase; }
-        header p { color: #666; margin-top: 10px; font-size: 14px; letter-spacing: 1px; }
+        body { 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            transition: background-color 0.2s, color 0.2s;
+        }
         
-        .werbung-banner { background: #f0f0f0; border: 1px dashed #bbb; text-align: center; padding: 20px; margin: 20px auto; max-width: 1000px; color: #888; font-size: 12px; letter-spacing: 1px; }
-
-        .galerie { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
-        .produkt-karte { background: white; border: 1px solid #eee; border-radius: 8px; width: 320px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.02); text-align: center; padding-bottom: 25px; transition: transform 0.2s; }
-        .produkt-karte:hover { transform: translateY(-5px); }
-        .produkt-karte img { width: 100%; height: 380px; object-fit: cover; }
-        .produkt-karte h3 { font-size: 16px; margin: 20px 0 5px 0; text-transform: uppercase; letter-spacing: 2px; }
-        .stimmen-zahl { color: #555; font-size: 14px; margin-bottom: 18px; letter-spacing: 0.5px; }
+        header { 
+            text-align: center; 
+            padding: 40px 20px; 
+            background: transparent; 
+            border-bottom: 1px solid var(--card-border); 
+        }
         
-        .btn-vote { padding: 12px 24px; border: 1px solid #111; border-radius: 4px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; cursor: pointer; transition: 0.2s; background: transparent; color: #111; }
-        .btn-vote.active { background: #d32f2f; color: white; border-color: #d32f2f; }
-        .btn-vote:hover { background: #111; color: white; }
-        .btn-vote.active:hover { background: #b71c1c; border-color: #b71c1c; }
+        header h1 { 
+            margin: 0; 
+            font-size: 3rem; 
+            letter-spacing: 5px; 
+            text-transform: uppercase; 
+        }
+        
+        header p { 
+            color: #666; 
+            margin-top: 10px; 
+            font-size: 14px; 
+            letter-spacing: 1px; 
+        }
 
-        /* Contact Form Styles */
-        .contact-section { background: white; border-top: 1px solid #eee; padding: 60px 20px; text-align: center; }
-        .contact-container { max-width: 500px; margin: 0 auto; text-align: left; }
-        .contact-container h2 { text-align: center; text-transform: uppercase; letter-spacing: 3px; font-size: 22px; margin-bottom: 30px; color: #111; }
-        .contact-container label { display: block; margin-top: 15px; color: #444; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
-        .contact-container input, .contact-container textarea { width: 100%; padding: 12px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
-        .btn-submit { width: 100%; padding: 14px; margin-top: 20px; background: #111; color: white; border: none; border-radius: 4px; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.2s; }
-        .btn-submit:hover { background: #333; }
-        .success-flash { padding: 15px; border-radius: 4px; text-align: center; margin-bottom: 20px; font-size: 14px; }
+        .werbung-banner { 
+            background: var(--card-bg); 
+            border: 1px dashed #bbb; 
+            text-align: center; 
+            padding: 20px; 
+            margin: 20px auto; 
+            max-width: 1080px; 
+            color: #888; 
+            font-size: 12px; 
+            letter-spacing: 1px; 
+        }
+
+        .galerie { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 40px; 
+            padding: 40px 20px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .produkt-karte { 
+            background-color: var(--card-bg); 
+            border: 1px solid var(--card-border); 
+            border-radius: 8px; 
+            width: 320px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
+            text-align: center; 
+            padding-bottom: 25px; 
+            transition: transform 0.2s, background-color 0.2s, border-color 0.2s; 
+        }
+
+        .produkt-karte:hover { 
+            transform: translateY(-5px); 
+        }
+
+        .produkt-karte img { 
+            width: 100%; 
+            height: 380px; 
+            object-fit: cover; 
+        }
+
+        .stimmen-zahl { 
+            margin-top: 10px; 
+            font-size: 15px; 
+            font-weight: bold; 
+        }
+
+        .btn-vote {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            padding: 10px 20px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .btn-vote:hover {
+            background-color: var(--text-color);
+            color: var(--card-bg);
+        }
+
+        .btn-vote.active {
+            background-color: #ff9900;
+            color: white;
+            border-color: #ff9900;
+        }
+
+        #modal-impressum > div, #modal-privacy > div {
+            background-color: var(--modal-bg) !important;
+            color: var(--text-color) !important;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Toggle Button oben rechts -->
     <button id="theme-toggle" style="position: fixed; top: 20px; right: 20px; z-index: 1000; padding: 10px 15px; border-radius: 20px; border: 1px solid #ccc; cursor: pointer; font-weight: bold; background-color: #000; color: #fff;">
-    🌓 Toggle Mode
+        🌓 Toggle Mode
+    </button>
+
     <header>
         <h1>LUCCIX</h1>
         <p>VOTE FOR YOUR FAVORITE DESIGNS. HELP US DECIDE WHAT DROPS NEXT.</p>
@@ -80,19 +146,21 @@ body {
         [ADVERTISEMENT SPACE]
     </div>
 
-    <!-- Galerie -->
+    <!-- Galerie-Raster für die Produkte -->
     <div class="galerie">
         {% for id, info in klamotten.items() %}
         <div class="produkt-karte">
             <img src="{{ info.bild_url }}" alt="{{ info.name }}">
             <h3>{{ info.name }}</h3>
+            
+            <!-- Die korrekte Like-Anzeige aus deiner JSON -->
             <div class="stimmen-zahl">🔥 <span id="like-count-{{ id }}">{{ info.stimmen }}</span> Likes</div>
-
+            
             <form action="/vote/{{ id }}" method="POST">
                 {% if id in voted_items %}
                     <button type="submit" class="btn-vote active">❤️ Liked</button>
                 {% else %}
-                    <button type="submit" class="btn-vote">👍 Like Design</button>
+                    <button type="submit" class="btn-vote">🔥 Like Design</button>
                 {% endif %}
             </form>
         </div>
@@ -234,17 +302,17 @@ themeToggle.addEventListener('click', () => {
         <h2 style="margin-top: 0; border-bottom: 2px solid #000; padding-bottom: 10px;">Impressum</h2>
         
         <p><strong>Angaben gemäß § 5 DDG:</strong></p>
-        <p>[Dein vollständiger Vor- und Nachname]<br>
-        [Deine Straße und Hausnummer]<br>
-        [Deine PLZ und dein Wohnort]</p>
+        <p>Paul Sebastian Sotko<br>
+        Maximilianstr 28<br>
+        75172 Pforzheim</p>
         
         <p><strong>Kontakt:</strong><br>
-        E-Mail: [Deine E-Mail-Adresse, z. B. kontakt@luccix-clothing.com]</p>
+        E-Mail: Luccix@web.de</p>
         
         <p><strong>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:</strong><br>
-        [Dein vollständiger Vor- und Nachname]<br>
-        [Deine Straße und Hausnummer]<br>
-        [Deine PLZ und dein Wohnort]</p>
+        Paul Sebastian Sotko<br>
+        Maximilianstr 28<br>
+        75172 Pforzheim</p>
         
         <p style="font-size: 11px; color: #666; margin-top: 20px;">EU-Streitschlichtung: Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://europa.eu" target="_blank" style="color: #000;">https://europa.eu</a>.<br>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
     </div>
