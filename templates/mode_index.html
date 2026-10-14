@@ -153,13 +153,15 @@
             <img src="{{ info.bild_url }}" alt="{{ info.name }}">
             <h3>{{ info.name }}</h3>
             
+            <!-- Die korrekte Like-Anzeige, die sich per JavaScript live updatet -->
             <div class="stimmen-zahl">🔥 <span id="like-count-{{ id }}">{{ info.stimmen }}</span> Likes</div>
             
-            <form action="/vote/{{ id }}" method="POST">
+            <!-- AJAX Formular: Lädt die Seite beim Klicken nicht neu! -->
+            <form class="vote-form" data-id="{{ id }}" action="/vote/{{ id }}" method="POST">
                 {% if id in voted_items %}
-                    <button type="submit" class="btn-vote active">❤️ Liked</button>
+                    <button type="submit" class="btn-vote active" id="vote-btn-{{ id }}">❤️ Liked</button>
                 {% else %}
-                    <button type="submit" class="btn-vote">🔥 Like Design</button>
+                    <button type="submit" class="btn-vote" id="vote-btn-{{ id }}">🔥 Like Design</button>
                 {% endif %}
             </form>
         </div>
@@ -333,6 +335,45 @@
             }
         });
     }
+
+        // 4. AJAX Like-System (Verhindert das Neuladen der Seite)
+    const voteForms = document.querySelectorAll(".vote-form");
+
+    voteForms.forEach(form => {
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault(); // Verhindert das Neuladen der Seite
+            
+            const itemId = form.getAttribute("data-id");
+            const btn = document.getElementById(`vote-btn-${itemId}`);
+            const countSpan = document.getElementById(`like-count-${itemId}`);
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: "POST",
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (response.ok) {
+                    let currentLikes = parseInt(countSpan.innerText);
+                    
+                    if (btn.classList.contains("active")) {
+                        // Unlike: Stimme abziehen
+                        btn.classList.remove("active");
+                        btn.innerText = "🔥 Like Design";
+                        countSpan.innerText = Math.max(0, currentLikes - 1);
+                    } else {
+                        // Like: Stimme hinzufügen
+                        btn.classList.add("active");
+                        btn.innerText = "❤️ Liked";
+                        countSpan.innerText = currentLikes + 1;
+                    }
+                }
+            } catch (error) {
+                console.error("Fehler beim Abstimmen:", error);
+            }
+        });
+    });
+
 </script>
 </body>
 </html>
